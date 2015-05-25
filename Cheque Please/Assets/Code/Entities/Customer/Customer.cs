@@ -46,7 +46,7 @@ public class Customer : Entity {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (active == true) {//if the game controller has activated a customer
+		if (active == true && gController.pause == false) {//if the game controller has activated a customer
 			counter++;
 			if (counter >= time || outOfTime == true){//if customer has waited too long
 				outOfTime = true;

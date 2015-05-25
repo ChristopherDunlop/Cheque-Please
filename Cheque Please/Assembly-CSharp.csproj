@@ -51,6 +51,7 @@
      <Compile Include="Assets\Code\Entities\Player\playerController.cs" />
      <Compile Include="Assets\Code\GameController.cs" />
      <Compile Include="Assets\Code\HowToPlay.cs" />
+     <Compile Include="Assets\Code\InGameMenu.cs" />
      <Compile Include="Assets\Code\Inventories\Player\InventoryDisplay.cs" />
      <Compile Include="Assets\Code\Inventories\Player\ItemManager.cs" />
      <Compile Include="Assets\Code\Inventories\Player\ItemPlayerManager.cs" />

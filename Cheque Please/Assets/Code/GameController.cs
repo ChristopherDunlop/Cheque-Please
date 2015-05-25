@@ -14,18 +14,28 @@ public class GameController : MonoBehaviour {
 	public Text levelNo;
 	public Text complete;
 	public Text failed;
+	public Button menuButton;
+	public Button restartButton;
+	public Button pauseButton;	
+	public Button nextButton;
 	public int level;
 	public float timer;
 	public int score = 0;
 	public int playerPatience;
 	public float playerSpeed;
 	public int levelScore;
+	public bool pause = false;
 
 	// Use this for initialization
 	void Start () {
 
 		//levelScore = 100;
+		pauseButton.transform.localScale = new Vector3(0, 0, 0);
+		restartButton.transform.localScale = new Vector3(0, 0, 0);
+		menuButton.transform.localScale = new Vector3(0, 0, 0);
+		nextButton.transform.localScale = new Vector3(0, 0, 0);
 		timer = 180;
+		//timer = 4;
 		levelNo.text = "Level " + level;
 		//scoreDisplay = GetComponent<Text> ();
 		scoreDisplay.text = "Score: $" + score;
@@ -45,23 +55,34 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			pause = true;
+		}
 
-		if (timer > 0 && score < levelScore) {
+		if (timer > 0 && score < levelScore && pause == false) {
 			timer -= Time.deltaTime;
 			timeDisplay.text = "Time: " + (int) timer;
 			scoreDisplay.text = "Score: $" + score;
 
 			activteRandomCustomer ();
 		}
-		if (score >= levelScore || timer <= 0) {
+		if (score >= levelScore || timer <= 0 || pause == true) {
 			scoreDisplay.text = "Score: $" + score;
+			if(pause == true){	
+				pauseButton.transform.localScale = new Vector3(1, 1, 0);
+				menuButton.transform.localScale = new Vector3(1, 1, 0);
+				complete.text = "Menu";
+			}else{
 			timeOutCustomer ();
+			}
 			if (timer <= 0){
 				failed.text = "Level Failed!";
-				//button replay level
-			}else{
+				restartButton.transform.localScale = new Vector3(1, 1, 0);
+				menuButton.transform.localScale = new Vector3(1, 1, 0);
+			}else if(score>= levelScore){
 				complete.text = "Level Complete!";
-				//button next level
+				nextButton.transform.localScale = new Vector3(1, 1, 0);
+				menuButton.transform.localScale = new Vector3(1, 1, 0);
 			}
 		}
 
@@ -120,5 +141,13 @@ public class GameController : MonoBehaviour {
 			Customer tempCust = GameObject.Find("Customer" + i).GetComponent<Customer> ();
 			tempCust.outOfTime = true;  
 		}
+	}
+
+	public void unPause(){
+		pauseButton.transform.localScale = new Vector3(0, 0, 0);
+		menuButton.transform.localScale = new Vector3(0, 0, 0);
+		complete.text = "";
+		pause = false;
+
 	}
 }
