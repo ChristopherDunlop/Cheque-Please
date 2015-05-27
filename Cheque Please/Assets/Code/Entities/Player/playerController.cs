@@ -11,6 +11,7 @@ public class playerController : MonoBehaviour {
 	//public bool holdingObject = false;
 	//public GameObject itemParent;
 	public InventoryDisplay iDisplay;
+	public AudioSource pickUp;
 	//public ItemPlayerManager ipManager;
 	
 	// Use this for initialization
@@ -23,6 +24,12 @@ public class playerController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate()
 	{
+		
+		if (Input.GetKeyDown (KeyCode.F)) {
+			pList = new List<string>();
+			iDisplay.refresh(pList, false);
+			pickUp.Play ();
+		}
 		
 		var vertical = Input.GetAxis("Vertical");
 		var horizontal = Input.GetAxis("Horizontal");
@@ -48,13 +55,15 @@ public class playerController : MonoBehaviour {
 	{
 		if (pList.Count < 2) {
 			pList.Add(itemName);
+			pickUp.Play ();
 			iDisplay.refresh(pList, false);
 		}
 	}
 	public void removeItemFromInventory(string itemName)
 	{
 		if (pList.Count > 0) {
-			pList.Remove(itemName);			
+			pList.Remove(itemName);	
+			pickUp.Play ();
 			iDisplay.refresh(pList, false);
 		}
 	}

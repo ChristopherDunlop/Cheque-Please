@@ -25,9 +25,8 @@ public class Customer : Entity {
 	public int orderSize;
 	public bool seated;
 	public bool orderDisplayed;
+	private AudioSource source;
 	//private int mySeatNo;
-
-
 
 	//  Use this for initialization
 	void Start () {
@@ -36,16 +35,22 @@ public class Customer : Entity {
 		checkingPC = GameObject.Find("Player").GetComponent<playerController>();
 		iDisplay = GameObject.Find ("OrderDisplay").GetComponent<InventoryDisplay>();
 		gController = GameObject.Find ("GameController").GetComponent<GameController>();
+		source = GameObject.Find ("CashRegister").GetComponent<AudioSource> ();
 		//time = 5000; //time = random
 		time = gController.playerPatience;
 		speed = gController.playerSpeed;
+		
 
+		
 		//GetComponent<Rigidbody2D> ().transform.position = new Vector3((float)-4.9, (float)(1.4 - (0.7 * mySeatNo)), 0);
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		
+		//source.PlayOneShot(cashSound);
+		
 		if (active == true && gController.pause == false) {//if the game controller has activated a customer
 			counter++;
 			if (counter >= time || outOfTime == true){//if customer has waited too long
@@ -61,6 +66,7 @@ public class Customer : Entity {
 				//leave tip then...
 				if (seated == true){
 					gController.score = gController.score + 25;
+					source.Play();
 					seated = false;
 				}
 				walkOut();

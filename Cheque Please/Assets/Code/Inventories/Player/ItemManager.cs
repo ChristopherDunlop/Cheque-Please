@@ -8,7 +8,7 @@ public class ItemManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		DontDestroyOnLoad (gameObject);
+		//DontDestroyOnLoad (gameObject);
 	}
 	
 	// Update is called once per frame

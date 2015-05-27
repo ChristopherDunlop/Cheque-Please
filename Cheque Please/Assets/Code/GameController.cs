@@ -25,11 +25,16 @@ public class GameController : MonoBehaviour {
 	public float playerSpeed;
 	public int levelScore;
 	public bool pause = false;
+	public AudioSource completeLevel;
+	public AudioSource failLevel;
+	public AudioSource gameMusic;
+	private bool played;
 
 	// Use this for initialization
 	void Start () {
 
 		//levelScore = 100;
+		gameMusic.Play ();
 		pauseButton.transform.localScale = new Vector3(0, 0, 0);
 		restartButton.transform.localScale = new Vector3(0, 0, 0);
 		menuButton.transform.localScale = new Vector3(0, 0, 0);
@@ -69,6 +74,7 @@ public class GameController : MonoBehaviour {
 		if (score >= levelScore || timer <= 0 || pause == true) {
 			scoreDisplay.text = "Score: $" + score;
 			if(pause == true){	
+				gameMusic.Pause ();
 				pauseButton.transform.localScale = new Vector3(1, 1, 0);
 				menuButton.transform.localScale = new Vector3(1, 1, 0);
 				complete.text = "Menu";
@@ -77,12 +83,32 @@ public class GameController : MonoBehaviour {
 			}
 			if (timer <= 0){
 				failed.text = "Level Failed!";
+				gameMusic.Stop ();
+				if(played == false){
+					failLevel.Play ();
+					played = true;
+				}
 				restartButton.transform.localScale = new Vector3(1, 1, 0);
 				menuButton.transform.localScale = new Vector3(1, 1, 0);
 			}else if(score>= levelScore){
+				if(level == 10){
+					complete.text = "Game Complete!";					
+					gameMusic.Stop ();
+					if(played == false){
+						completeLevel.Play ();
+						played = true;
+					}
+					menuButton.transform.localScale = new Vector3(1, 1, 0);
+				}else{
 				complete.text = "Level Complete!";
+				gameMusic.Stop ();
+				if(played == false){
+					completeLevel.Play ();
+					played = true;
+				}
 				nextButton.transform.localScale = new Vector3(1, 1, 0);
 				menuButton.transform.localScale = new Vector3(1, 1, 0);
+				}
 			}
 		}
 
@@ -95,21 +121,16 @@ public class GameController : MonoBehaviour {
 			Customer tempCust = GameObject.Find("Customer" + rnd.Next(6)).GetComponent<Customer> ();
 			if(tempCust.active != true){
 
-			tempCust.orderSize = rnd.Next (1, 2);
+				tempCust.orderSize = rnd.Next (1, 3);
 			
-			for (int i=0; i<=tempCust.orderSize; i++) {
+			for (int i=0; i<tempCust.orderSize; i++) {
 				
-				int tempOrder = 0;
-
-				switch(level){
-				case 1:
-					tempOrder = rnd.Next (3);
-					break;
-				case 2:
-					tempOrder = rnd.Next (4);
-					break;
-				}
-				
+					int tempOrder;
+					if( level == 10){
+						tempOrder = rnd.Next(11);
+					}else{
+						tempOrder = rnd.Next(2+level);
+					}
 				switch (tempOrder) {
 				case 0:
 					tempCust.order = "Burger";
@@ -122,6 +143,27 @@ public class GameController : MonoBehaviour {
 					break;
 				case 3:
 					tempCust.order = "Hotdog";
+						break;
+				case 4:
+					tempCust.order = "Milkshake";
+					break;
+				case 5:
+					tempCust.order = "Icecream";
+					break;
+				case 6:
+					tempCust.order = "CheesyFries";
+					break;
+				case 7:
+					tempCust.order = "Pizza";
+					break;
+				case 8:
+					tempCust.order = "Salad";
+					break;
+				case 9:
+					tempCust.order = "Cake";
+					break;
+				case 10:
+					tempCust.order = "Chicken";
 					break;
 				}
 				
@@ -144,6 +186,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void unPause(){
+		gameMusic.UnPause ();
 		pauseButton.transform.localScale = new Vector3(0, 0, 0);
 		menuButton.transform.localScale = new Vector3(0, 0, 0);
 		complete.text = "";

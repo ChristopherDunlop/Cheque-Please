@@ -82,6 +82,48 @@ public class InventoryDisplay : MonoBehaviour {
 				newItem4.name=("Hotdog" + i);
 				newItem4.transform.parent = itemParent.transform;
 				break;
+			case "Milkshake":
+				Instantiate(foodItems[4], pos, Quaternion.identity);
+				GameObject newItem5 = GameObject.Find("Milkshake(Clone)");
+				newItem5.name=("Milkshake" + i);
+				newItem5.transform.parent = itemParent.transform;
+				break;
+			case "Icecream":
+				Instantiate(foodItems[5], pos, Quaternion.identity);
+				GameObject newItem6 = GameObject.Find("Icecream(Clone)");
+				newItem6.name=("Icecream" + i);
+				newItem6.transform.parent = itemParent.transform;
+				break;
+			case "CheesyFries":
+				Instantiate(foodItems[6], pos, Quaternion.identity);
+				GameObject newItem7 = GameObject.Find("CheesyFries(Clone)");
+				newItem7.name=("CheesyFries" + i);
+				newItem7.transform.parent = itemParent.transform;
+				break;
+			case "Pizza":
+				Instantiate(foodItems[7], pos, Quaternion.identity);
+				GameObject newItem8 = GameObject.Find("Pizza(Clone)");
+				newItem8.name=("Pizza" + i);
+				newItem8.transform.parent = itemParent.transform;
+				break;
+			case "Salad":
+				Instantiate(foodItems[8], pos, Quaternion.identity);
+				GameObject newItem9 = GameObject.Find("Salad(Clone)");
+				newItem9.name=("Salad" + i);
+				newItem9.transform.parent = itemParent.transform;
+				break;
+			case "Cake":
+				Instantiate(foodItems[9], pos, Quaternion.identity);
+				GameObject newItem10 = GameObject.Find("Cake(Clone)");
+				newItem10.name=("Cake" + i);
+				newItem10.transform.parent = itemParent.transform;
+				break;
+			case "Chicken":
+				Instantiate(foodItems[10], pos, Quaternion.identity);
+				GameObject newItem11 = GameObject.Find("Chicken(Clone)");
+				newItem11.name=("Chicken" + i);
+				newItem11.transform.parent = itemParent.transform;
+				break;
 			}
 		}
 	}
