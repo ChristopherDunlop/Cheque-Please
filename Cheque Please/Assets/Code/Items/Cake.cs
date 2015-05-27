@@ -14,7 +14,7 @@ public class Cake : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Vector2.Distance (GetComponent<Rigidbody2D> ().transform.position, checkingPC.GetComponent<Rigidbody2D> ().transform.position) < 1) 
+		if (Vector2.Distance (GetComponent<Rigidbody2D> ().transform.position, checkingPC.GetComponent<Rigidbody2D> ().transform.position) < 0.55) 
 		{
 			distance = true;
 			if (Input.GetKeyDown (KeyCode.Space)) 
